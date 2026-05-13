@@ -3,7 +3,7 @@
 // ============================================================
 
 import React from 'react'
-import logoImg from '../../../../_media/logo.png'
+import logoImg from '../../../_media/logo.png'
 
 type LogoSize = 'sm' | 'md' | 'lg'
 

@@ -12,8 +12,13 @@ import { FORMATS } from '@/utils/dimensions'
 import { clairDeLune as theme } from '@/themes/clairDeLune'
 
 export function Preview() {
-  const [selectedCampaign, setSelectedCampaign] = useState(campaigns[0].slug)
-  const [previewFormat, setPreviewFormat] = useState<ArtFormat>('4:5')
+  const searchParams = new URLSearchParams(window.location.search)
+  const exportMode = searchParams.get('export') === 'true'
+  const defaultCampaign = searchParams.get('campaign') || campaigns[0].slug
+  const defaultFormat = (searchParams.get('format') as ArtFormat) || '4:5'
+
+  const [selectedCampaign, setSelectedCampaign] = useState(defaultCampaign)
+  const [previewFormat, setPreviewFormat] = useState<ArtFormat>(defaultFormat)
   const [debug, setDebug] = useState(false)
 
   const campaign = campaigns.find((c) => c.slug === selectedCampaign) ?? campaigns[0]
@@ -27,6 +32,16 @@ export function Preview() {
 
   // Dimensões da arte para exibir no UI
   const dims = FORMATS[previewFormat]
+
+  if (exportMode) {
+    return (
+      <div style={{ margin: 0, padding: 0, overflow: 'hidden', width: dims.width, height: dims.height }}>
+        <Artboard format={previewFormat} fullResolution>
+          {renderLayout()}
+        </Artboard>
+      </div>
+    )
+  }
 
   return (
     <div

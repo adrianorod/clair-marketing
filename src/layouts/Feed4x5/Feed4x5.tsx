@@ -17,12 +17,10 @@ interface Feed4x5Props {
 }
 
 export function Feed4x5({ campaign }: Feed4x5Props) {
-  const isDark = campaign.theme !== 'light'
-
   return (
     <>
       {/* Fundo */}
-      <Background variant={isDark ? 'dark-gradient' : 'light'} />
+      <Background variant={campaign.theme === 'dark' ? 'dark-gradient' : 'light'} />
 
       {/* Decoração: linha dourada lateral */}
       <div
@@ -96,12 +94,12 @@ export function Feed4x5({ campaign }: Feed4x5Props) {
           {/* Centro: Conteúdo principal */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: theme.spacing.md }}>
             {campaign.subheadline && (
-              <Subheadline color={isDark ? 'gold' : 'dark'}>
+              <Subheadline color="gold">
                 {campaign.subheadline}
               </Subheadline>
             )}
 
-            <Headline size="xl" color={isDark ? 'white' : 'dark'}>
+            <Headline size="xl" color="dark">
               {campaign.headline}
             </Headline>
 
@@ -110,7 +108,7 @@ export function Feed4x5({ campaign }: Feed4x5Props) {
                 price={campaign.price}
                 suffix={campaign.priceSuffix}
                 label="por apenas"
-                variant={isDark ? 'dark' : 'light'}
+                variant="light"
                 size="lg"
               />
             )}
@@ -127,7 +125,7 @@ export function Feed4x5({ campaign }: Feed4x5Props) {
                 fontFamily: theme.typography.fontDisplay,
                 fontSize: theme.typography.sizes.xs,
                 fontStyle: 'italic',
-                color: isDark ? theme.colors.gold : theme.colors.muted,
+                color: theme.colors.muted,
                 opacity: 0.8,
                 letterSpacing: '0.02em',
               }}

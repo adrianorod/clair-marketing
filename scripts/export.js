@@ -14,6 +14,7 @@
 //   - npx playwright install chromium
 
 import { chromium } from 'playwright'
+import { createServer } from 'vite'
 import path from 'path'
 import fs from 'fs'
 
@@ -36,7 +37,7 @@ async function exportCampaign(browser, { slug, format, dir }) {
 
   await page.setViewportSize({ width, height })
 
-  const url = `${BASE_URL}/preview?format=${encodeURIComponent(format)}&campaign=${slug}`
+  const url = `${BASE_URL}/preview?format=${encodeURIComponent(format)}&campaign=${slug}&export=true`
   console.log(`⏳ Abrindo: ${url}`)
 
   await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 })
@@ -82,6 +83,13 @@ async function main() {
   console.log(`\n🎨 Marketing Art Generator — Clair de Lune`)
   console.log(`📸 Exportando ${targets.length} arte(s)...\n`)
 
+  console.log('🚀 Iniciando servidor de desenvolvimento Vite...')
+  const vite = await createServer({
+    server: { port: 5173 },
+    appType: 'spa',
+  })
+  await vite.listen()
+
   const browser = await chromium.launch()
 
   const results = []
@@ -96,6 +104,7 @@ async function main() {
   }
 
   await browser.close()
+  await vite.close()
 
   console.log('\n📋 Resumo:')
   results.forEach(({ slug, file, success }) => {

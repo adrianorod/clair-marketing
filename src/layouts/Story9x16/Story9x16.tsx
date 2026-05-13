@@ -17,12 +17,10 @@ interface Story9x16Props {
 }
 
 export function Story9x16({ campaign }: Story9x16Props) {
-  const isDark = campaign.theme !== 'light'
-
   return (
     <>
       {/* Fundo */}
-      <Background variant={isDark ? 'gold-gradient' : 'light'} />
+      <Background variant={campaign.theme === 'dark' ? 'gold-gradient' : 'light'} />
 
       {/* Decoração: grade de pontos sutil */}
       <div
@@ -104,7 +102,7 @@ export function Story9x16({ campaign }: Story9x16Props) {
               </Subheadline>
             )}
 
-            <Headline size="xl" color="white" align="center" italic>
+            <Headline size="xl" color="dark" align="center" italic>
               {campaign.headline}
             </Headline>
 
@@ -157,7 +155,7 @@ export function Story9x16({ campaign }: Story9x16Props) {
                 style={{
                   width: 2,
                   height: 32,
-                  background: theme.colors.white,
+                  background: theme.colors.black,
                   borderRadius: 2,
                 }}
               />
@@ -166,7 +164,7 @@ export function Story9x16({ campaign }: Story9x16Props) {
                   fontFamily: theme.typography.fontDisplay,
                   fontSize: 18,
                   letterSpacing: theme.typography.letterSpacings.wider,
-                  color: theme.colors.white,
+                  color: theme.colors.black,
                   textTransform: 'uppercase',
                 }}
               >
