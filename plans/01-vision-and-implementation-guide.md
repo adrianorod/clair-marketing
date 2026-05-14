@@ -75,6 +75,7 @@ Não é um site tradicional responsivo.
 Os formatos são conhecidos e fixos.
 
 O sistema deve:
+
 - adaptar layout entre formatos;
 - preservar hierarquia visual;
 - evitar distorções.
@@ -84,6 +85,7 @@ O sistema deve:
 ## 4. IA como copiloto
 
 O Codex deve:
+
 - entender regras da marca;
 - seguir constraints visuais;
 - gerar novas artes;
@@ -109,6 +111,7 @@ Escolha recomendada:
 ### Opção A — Tailwind (recomendada)
 
 Prós:
+
 - velocidade;
 - consistência;
 - ótimo para IA;
@@ -117,6 +120,7 @@ Prós:
 ### Opção B — CSS Modules
 
 Prós:
+
 - mais controle visual;
 - CSS mais explícito.
 
@@ -125,10 +129,11 @@ Prós:
 ## Exportação
 
 - Playwright
-ou
+  ou
 - Puppeteer
 
 Objetivo:
+
 - renderizar artes;
 - exportar PNG real em 1080px.
 
@@ -199,8 +204,8 @@ marketing-art-generator/
 ## Feed 4:5
 
 ```ts
-width: 1080
-height: 1350
+width: 1080;
+height: 1350;
 ```
 
 ---
@@ -208,8 +213,8 @@ height: 1350
 ## Story/Reels 9:16
 
 ```ts
-width: 1080
-height: 1920
+width: 1080;
+height: 1920;
 ```
 
 ---
@@ -239,6 +244,7 @@ Dependendo da proposta visual.
 Criar margens internas obrigatórias.
 
 Evitar:
+
 - textos colados;
 - CTAs próximos demais das bordas;
 - cortes em stories.
@@ -259,6 +265,7 @@ Toda arte deve ter:
 ## Limite de Texto
 
 Evitar:
+
 - parágrafos;
 - excesso de informação;
 - densidade visual.
@@ -377,6 +384,7 @@ Implementar:
 - export simples.
 
 Entrega esperada:
+
 - uma arte renderizando corretamente nos dois formatos.
 
 ---
@@ -396,6 +404,7 @@ Implementar:
 - safe areas.
 
 Entrega esperada:
+
 - múltiplas artes mantendo padrão visual.
 
 ---
@@ -406,11 +415,13 @@ Objetivo:
 Separar layout de conteúdo.
 
 Implementar:
+
 - campanhas via JSON/TS;
 - componentes reutilizáveis;
 - props dinâmicas.
 
 Entrega esperada:
+
 - gerar várias campanhas trocando apenas dados.
 
 ---
@@ -421,12 +432,14 @@ Objetivo:
 Exportar assets reais.
 
 Implementar:
+
 - Playwright/Puppeteer;
 - PNG;
 - automação de geração;
 - export batch.
 
 Entrega esperada:
+
 - exportar dezenas de artes automaticamente.
 
 ---
@@ -437,12 +450,14 @@ Objetivo:
 Codex gerar layouts corretamente.
 
 Implementar:
+
 - AGENTS.md robusto;
 - exemplos;
 - prompts;
 - padrões reutilizáveis.
 
 Entrega esperada:
+
 - IA conseguindo criar novas artes mantendo identidade.
 
 ---
@@ -453,8 +468,8 @@ Objetivo:
 Transformar em plataforma.
 
 Possibilidades:
+
 - editor visual;
-- múltiplas marcas;
 - geração automática;
 - banco de templates;
 - timeline;
@@ -477,6 +492,7 @@ margin-top: 37px;
 Sem contexto.
 
 Preferir:
+
 - spacing system;
 - tokens;
 - grid.
@@ -502,6 +518,7 @@ Conteúdo:
 ## Não usar imagens sem otimização
 
 Criar pipeline:
+
 - compressão;
 - naming;
 - organização.
