@@ -493,12 +493,81 @@ Quando `generate-art.yml` detecta um card em "Pronto pra Fazer" com insumos sufi
 
 ---
 
-## Próximos Passos Imediatos
+## Setup Inicial (Passo a Passo)
 
-1. [ ] Criar board Notion (5 colunas + propriedades: Headline, Brief Mídia, Categoria, Formato, Tipo Conteúdo, CTA, Data Prevista)
-2. [ ] Gerar token Notion e testar `scripts/notion.ts`
-3. [ ] Criar `scripts/seasonality.ts` com calendário 2026
-4. [ ] Criar `scripts/planner.ts` com prompt que gera `briefMidia` em cada card
-5. [ ] Testar `weekly-plan.yml` manual (`workflow_dispatch`) — verificar se os briefs estão claros
-6. [ ] Criar `scripts/generate-art.ts` integrado com exportador
-7. [ ] Testar `generate-art.yml` com card enriquecido manualmente
+> ⚠️ Os scripts já estão implementados. Siga esta ordem para configurar e testar.
+
+### Etapa 1 — Criar o Board no Notion
+
+1. Acesse https://notion.so e crie uma database vazia com nome `Clair de Lune — Produção de Conteúdo`
+2. Adicione as colunas (Status) como Select com 5 valores: `Backlog`, `Plano da Semana`, `Pronto pra Fazer`, `Em Validação`, `Done`
+3. Adicione cada propriedade listada em `_context/notion-guide.md` (Headline, Categoria, Tema, Ângulo, Formato, Tipo Conteúdo, Roteiro, Brief Mídia, CTA, Data Prevista, Retorno Est, Copy, Status, Mídia, Arte Gerada)
+4. Popule o vocabulário de `Tema` como Select com as opções listadas no guide
+
+> 📖 Consulte `_context/notion-guide.md` para o schema completo.
+
+### Etapa 2 — Configurar Integração Notion
+
+1. Acesse https://www.notion.so/my-integrations
+2. Crie uma integração (bot) com nome "Clair Marketing AI"
+3. Copie o **Internal Integration Token** (começa com `ntn_`)
+4. No board que você criou, clique em **Share → Invite** e selecione a integração
+5. Copie o **Database ID** da URL do board:
+   `https://www.notion.so/workspace/DB_ID?v=...`
+
+### Etapa 3 — Configurar GitHub Secrets
+
+No repositório do GitHub: **Settings → Secrets and variables → Actions → New repository secret**
+
+| Secret | Valor |
+|---|---|
+| `NOTION_TOKEN` | Token da integração (ntn_...) |
+| `NOTION_DATABASE_ID` | ID do database copiado |
+| `LLM_API_KEY` | Chave da OpenAI (sk-...) ou Anthropic |
+
+### Etapa 4 — Testar o Planejador Localmente
+
+```bash
+# Instalar dependências (já deve estar feito)
+pnpm install
+
+# Criar ao menos 1 card no Backlog do Notion com uma ideia
+# (ex: Headline = "Post sobre hidratação")
+
+# Executar o planner local
+NOTION_TOKEN=ntn_... \
+NOTION_DATABASE_ID=... \
+LLM_API_KEY=sk-... \
+POSTS_PER_WEEK=3 \
+pnpm plan
+```
+
+Verificar: os cards foram criados na coluna "Plano da Semana"?
+
+### Etapa 5 — Testar o Gerador de Artes
+
+1. Pegue um card de "Plano da Semana", adicione uma foto na propriedade `Mídia`, preencha `Formato` e `CTA`, mova para "Pronto pra Fazer"
+2. Execute o Vite em background: `pnpm dev &`
+3. Execute: `NOTION_TOKEN=... NOTION_DATABASE_ID=... pnpm generate-art`
+4. Verificar: o PNG foi gerado em `exports/` e o card moveu para "Em Validação"?
+
+### Etapa 6 — Ativar Workflows no GitHub
+
+1. Faça push do código para o GitHub
+2. Acesse a aba **Actions** do repositório
+3. O workflow `Weekly Plan` vai rodar automaticamente na próxima segunda 08h
+4. Para testar antes: clique em **"Weekly Plan" → Run workflow** (workflow_dispatch)
+5. Faça o mesmo para **"Generate Art"**
+
+---
+
+## Próximos Passos (Checklist)
+
+- [ ] **Etapa 1** — Board Notion criado com colunas + propriedades + vocabulário de temas
+- [ ] **Etapa 2** — Integração Notion configurada (token + database ID)
+- [ ] **Etapa 3** — GitHub Secrets configurados (NOTION_TOKEN, NOTION_DATABASE_ID, LLM_API_KEY)
+- [ ] **Etapa 4** — `pnpm plan` testado localmente com cards no Backlog
+- [ ] **Etapa 5** — `pnpm generate-art` testado com card enriquecido manualmente
+- [ ] **Etapa 6** — Código commitado e push para o GitHub
+- [ ] **Etapa 7** — Workflows testados manualmente via `workflow_dispatch`
+- [ ] **Etapa 8** — Primeiro ciclo completo: planejar → produzir → gerar → validar → publicar

@@ -2,7 +2,6 @@
 // LAYOUT — Story / Reels 9:16 (1080x1920)
 // ============================================================
 
-import React from 'react'
 import type { Campaign } from '@/campaigns/campaigns'
 import { clairDeLune as theme } from '@/themes/clairDeLune'
 import { Background } from '@/components/Background'

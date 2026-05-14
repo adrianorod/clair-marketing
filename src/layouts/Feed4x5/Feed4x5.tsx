@@ -2,7 +2,6 @@
 // LAYOUT — Feed 4:5 (1080x1350)
 // ============================================================
 
-import React from 'react'
 import type { Campaign } from '@/campaigns/campaigns'
 import { clairDeLune as theme } from '@/themes/clairDeLune'
 import { Background } from '@/components/Background'

@@ -1,0 +1,42 @@
+name: Weekly Plan
+
+on:
+  schedule:
+    - cron: '0 11 * * 1'
+  workflow_dispatch:
+    inputs:
+      posts:
+        description: 'Número de posts para a semana'
+        required: false
+        default: '7'
+      model:
+        description: 'Modelo LLM'
+        required: false
+        default: 'gpt-4o'
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Planejar semana
+        run: pnpm plan
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_MODEL: ${{ inputs.model || 'gpt-4o' }}
+          POSTS_PER_WEEK: ${{ inputs.posts || '7' }}
+          WEEKS_OF_HISTORY: '4'

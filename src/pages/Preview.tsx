@@ -2,7 +2,7 @@
 // PREVIEW — Interface de preview das artes
 // ============================================================
 
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Artboard } from '@/components/Artboard'
 import { Feed4x5 } from '@/layouts/Feed4x5'
 import { Story9x16 } from '@/layouts/Story9x16'

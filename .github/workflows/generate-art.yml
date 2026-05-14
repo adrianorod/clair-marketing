@@ -1,0 +1,53 @@
+name: Generate Art
+
+on:
+  schedule:
+    - cron: '0 */2 * * *'
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Instalar Playwright
+        run: npx playwright install chromium
+
+      - name: Iniciar Vite (background)
+        run: npx vite --port 5173 &
+        env:
+          NODE_ENV: production
+
+      - name: Aguardar Vite
+        run: |
+          for i in $(seq 1 30); do
+            curl -s http://localhost:5173 > /dev/null && break
+            echo "Aguardando Vite... tentativa $i"
+            sleep 2
+          done
+
+      - name: Gerar artes dos cards prontos
+        run: pnpm generate-art
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+          NODE_ENV: production
+
+      - name: Fazer upload das artes geradas
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: exported-arts
+          path: exports/
