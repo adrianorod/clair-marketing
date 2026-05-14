@@ -20,11 +20,6 @@ import fs from 'fs'
 
 const BASE_URL = 'http://localhost:5173'
 
-const CAMPAIGNS = [
-  { slug: 'clube-escova', format: '4:5', dir: '4x5' },
-  { slug: 'clube-escova-story', format: '9:16', dir: '9x16' },
-  { slug: 'dia-das-maes', format: '4:5', dir: '4x5' },
-]
 
 const FORMATS = {
   '4:5': { width: 1080, height: 1350 },
@@ -63,13 +58,28 @@ async function exportCampaign(browser, { slug, format, dir }) {
 }
 
 async function main() {
+  console.log('🚀 Iniciando servidor de desenvolvimento Vite...')
+  const vite = await createServer({
+    server: { port: 5173 },
+    appType: 'spa',
+  })
+  await vite.listen()
+
+  // Lê as campanhas dinamicamente direto do arquivo TypeScript!
+  const { campaigns } = await vite.ssrLoadModule('/src/campaigns/campaigns.ts')
+  const ALL_CAMPAIGNS = campaigns.map((c) => ({
+    slug: c.slug,
+    format: c.format,
+    dir: c.format.replace(':', 'x'),
+  }))
+
   const args = process.argv.slice(2)
   const campaignArg = args.find((_, i) => args[i - 1] === '--campaign')
   const formatArg = args.find((_, i) => args[i - 1] === '--format')
 
-  let targets = CAMPAIGNS
+  let targets = ALL_CAMPAIGNS
   if (campaignArg) {
-    targets = CAMPAIGNS.filter((c) => c.slug === campaignArg)
+    targets = ALL_CAMPAIGNS.filter((c) => c.slug === campaignArg)
     if (formatArg) {
       targets = targets.filter((c) => c.format === formatArg)
     }
@@ -77,18 +87,12 @@ async function main() {
 
   if (targets.length === 0) {
     console.error('❌ Nenhuma campanha encontrada com os filtros fornecidos.')
+    await vite.close()
     process.exit(1)
   }
 
   console.log(`\n🎨 Marketing Art Generator — Clair de Lune`)
   console.log(`📸 Exportando ${targets.length} arte(s)...\n`)
-
-  console.log('🚀 Iniciando servidor de desenvolvimento Vite...')
-  const vite = await createServer({
-    server: { port: 5173 },
-    appType: 'spa',
-  })
-  await vite.listen()
 
   const browser = await chromium.launch()
 

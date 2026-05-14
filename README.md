@@ -74,8 +74,8 @@ src/
 ## Fases do projeto
 
 - [x] **Fase 1** — Fundação (React + Vite + componentes base + preview + export)
-- [ ] **Fase 2** — Sistema Visual (tokens, spacing, tipografia completa)
-- [ ] **Fase 3** — Sistema de Campanhas (JSON/TS dinâmico)
-- [ ] **Fase 4** — Exportação Profissional (batch automático)
-- [ ] **Fase 5** — Integração com IA (AGENTS.md robusto)
+- [x] **Fase 2** — Sistema Visual (tokens, spacing, tipografia completa)
+- [x] **Fase 3** — Sistema de Campanhas (JSON/TS dinâmico)
+- [x] **Fase 4** — Exportação Profissional (batch automático)
+- [x] **Fase 5** — Integração com IA (AGENTS.md robusto)
 - [ ] **Fase 6** — Escalabilidade (múltiplas marcas, editor visual)

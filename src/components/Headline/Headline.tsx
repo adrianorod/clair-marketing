@@ -76,10 +76,10 @@ export function Subheadline({
 }: SubheadlineProps) {
   const subStyle: React.CSSProperties = {
     fontFamily: theme.typography.fontAccent,
-    fontSize: theme.typography.sizes.sm,
-    fontWeight: theme.typography.weights.medium,
+    fontSize: theme.typography.sizes.md, // Aumentado um pouco pois cursivas tendem a parecer menores
+    fontWeight: theme.typography.weights.regular, // Updock fica melhor na sua espessura natural
     lineHeight: theme.typography.lineHeights.snug,
-    letterSpacing: theme.typography.letterSpacings.wider,
+    letterSpacing: theme.typography.letterSpacings.normal, // Fontes cursivas devem ficar unidas
     color: colorMap[color],
     margin: 0,
     padding: 0,

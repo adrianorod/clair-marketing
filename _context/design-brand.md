@@ -91,7 +91,7 @@ Cream: #FAF6F0
 ## Hierarquia em Artes de Marketing
 
 ```
-1. HEADLINE — Playfair, grande, impacto imediato
+1. HEADLINE — Albert Sans, grande, impacto imediato
    → Máximo 8 palavras
    → Preferencialmente com verbo de ação ou emoção
 

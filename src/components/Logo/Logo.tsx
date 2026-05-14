@@ -17,9 +17,9 @@ interface LogoProps {
 }
 
 const sizeMap: Record<LogoSize, number> = {
-  sm: 60,
-  md: 100,
-  lg: 160,
+  sm: 120,
+  md: 200,
+  lg: 300,
 }
 
 export function Logo({ size = 'md', style }: LogoProps) {

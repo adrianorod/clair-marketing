@@ -20,7 +20,11 @@ export function Feed4x5({ campaign }: Feed4x5Props) {
   return (
     <>
       {/* Fundo */}
-      <Background variant={campaign.theme === 'dark' ? 'dark-gradient' : 'light'} />
+      {campaign.backgroundImage ? (
+        <Background variant="image" src={campaign.backgroundImage} />
+      ) : (
+        <Background variant={campaign.theme === 'dark' ? 'dark-gradient' : 'light'} />
+      )}
 
       {/* Decoração: linha dourada lateral */}
       <div

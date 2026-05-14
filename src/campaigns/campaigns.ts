@@ -78,6 +78,30 @@ export const campaigns: Campaign[] = [
     theme: 'light',
     tags: ['sazonal', 'presente', 'promocao'],
   },
+  {
+    slug: 'spa-day',
+    name: 'Spa Day (Imagem)',
+    format: '4:5',
+    headline: 'Relaxe e renove suas energias.',
+    subheadline: 'Pacote Spa Day Completo',
+    price: 'R$ 250',
+    cta: 'Agende seu momento',
+    theme: 'light',
+    backgroundImage: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&auto=format&fit=crop&w=1080&q=80',
+    tags: ['spa', 'relax', 'imagem'],
+  },
+  {
+    slug: 'spa-day-story',
+    name: 'Spa Day — Story (Imagem)',
+    format: '9:16',
+    headline: 'Pausa para você.',
+    subheadline: 'Pacote Spa Day Completo',
+    price: 'R$ 250',
+    cta: 'Deslize para agendar',
+    theme: 'light',
+    backgroundImage: 'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1080&q=80',
+    tags: ['spa', 'relax', 'story', 'imagem'],
+  },
 ]
 
 /**

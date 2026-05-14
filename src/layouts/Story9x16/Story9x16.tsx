@@ -20,7 +20,11 @@ export function Story9x16({ campaign }: Story9x16Props) {
   return (
     <>
       {/* Fundo */}
-      <Background variant={campaign.theme === 'dark' ? 'gold-gradient' : 'light'} />
+      {campaign.backgroundImage ? (
+        <Background variant="image" src={campaign.backgroundImage} />
+      ) : (
+        <Background variant={campaign.theme === 'dark' ? 'gold-gradient' : 'light'} />
+      )}
 
       {/* Decoração: grade de pontos sutil */}
       <div
@@ -43,7 +47,7 @@ export function Story9x16({ campaign }: Story9x16Props) {
           width: 1400,
           height: 700,
           borderRadius: '50%',
-          background: `rgba(26, 26, 46, 0.3)`,
+          background: `rgba(201, 169, 110, 0.15)`,
           pointerEvents: 'none',
         }}
       />
